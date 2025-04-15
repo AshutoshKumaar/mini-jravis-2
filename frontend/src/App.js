@@ -9,7 +9,7 @@ function App() {
 
   useEffect(() => {
     const speech = new window.webkitSpeechRecognition();
-    speech.lang = 'en-US';
+    speech.lang = 'en-US'; // Hindi recognition
     speech.continuous = true;
     speech.interimResults = false;
 
@@ -24,6 +24,7 @@ function App() {
         speech.stop();
         setResponse('Okay, stopped listening.');
         const utterance = new SpeechSynthesisUtterance('Okay, stopped listening.');
+        utterance.lang = 'hi-IN'; // Speak in Hindi accent
         window.speechSynthesis.speak(utterance);
         return;
       }
@@ -35,6 +36,7 @@ function App() {
         setResponse(res.data.answer);
 
         const utterance = new SpeechSynthesisUtterance(res.data.answer);
+        utterance.lang = 'hi-IN'; // Respond in Hindi accent
         window.speechSynthesis.speak(utterance);
       } catch (error) {
         setResponse('Error connecting to Jarvis.');
@@ -55,11 +57,13 @@ function App() {
   };
 
   return (
-    <div className="min-h-screen flex flex-col justify-center items-center bg-gray-900 text-white font-sans">
+    <div className="min-h-screen flex flex-col justify-center items-center bg-gray-900 text-white font-sans px-4 text-center">
       <h1 className="text-4xl mb-6 font-bold">🤖 Jarvis - Voice Assistant</h1>
       <button
         onClick={toggleListening}
-        className={`px-6 py-3 mb-6 rounded-full text-lg font-medium transition-all ${listening ? 'bg-red-600' : 'bg-green-500'}`}
+        className={`px-6 py-3 mb-6 rounded-full text-lg font-medium transition-all ${
+          listening ? 'bg-red-600' : 'bg-green-500'
+        }`}
       >
         {listening ? '🛑 Stop Listening' : '🎙️ Start Talking'}
       </button>
