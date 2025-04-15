@@ -86,25 +86,25 @@ export default async function handler(req, res) {
   }
 
   // Weather
-  else if (q.includes('weather') || q.includes('mausam')) {
-    try {
-      const ip = await getPublicIP();
-      const geo = geoip.lookup(ip);
-      if (geo && geo.city) {
-        const apiKey = 'YOUR_OPENWEATHER_API_KEY';
-        const weatherRes = await axios.get(
-          `https://api.openweathermap.org/data/2.5/weather?q=${geo.city}&appid=${apiKey}&units=metric&lang=hi`
-        );
-        const weather = weatherRes.data;
-        answer = `Abhi ${geo.city} mein ${weather.weather[0].description} hai aur taapmaan ${weather.main.temp}°C hai.`;
-      } else {
-        answer = 'Mausam laane mein dikkat aayi.';
-      }
-    } catch (err) {
-      console.error(err);
-      answer = 'Mausam ki jankari laane mein dikkat aayi.';
-    }
-  }
+//   else if (q.includes('weather') || q.includes('mausam')) {
+//     try {
+//       const ip = await getPublicIP();
+//       const geo = geoip.lookup(ip);
+//       if (geo && geo.city) {
+//         const apiKey = 'YOUR_OPENWEATHER_API_KEY';
+//         const weatherRes = await axios.get(
+//           `https://api.openweathermap.org/data/2.5/weather?q=${geo.city}&appid=${apiKey}&units=metric&lang=hi`
+//         );
+//         const weather = weatherRes.data;
+//         answer = `Abhi ${geo.city} mein ${weather.weather[0].description} hai aur taapmaan ${weather.main.temp}°C hai.`;
+//       } else {
+//         answer = 'Mausam laane mein dikkat aayi.';
+//       }
+//     } catch (err) {
+//       console.error(err);
+//       answer = 'Mausam ki jankari laane mein dikkat aayi.';
+//     }
+//   }
 
   res.status(200).json({ answer });
 }
